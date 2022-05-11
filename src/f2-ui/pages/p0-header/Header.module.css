@@ -1,0 +1,25 @@
+.container {
+    grid-area: h;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: dodgerblue;
+}
+.pages {
+    width: 500px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.item {
+    color: white;
+    font-size: large;
+    text-decoration: none;
+}
+.active {
+    color: rgb(255, 217, 0);
+    text-decoration: none;
+    font-size: large;
+}

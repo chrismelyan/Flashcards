@@ -1,0 +1,45 @@
+.superInput {
+    font-family: inherit;
+    width: 250px;
+    margin: 10px;
+    border: 0;
+    border-bottom: 2px solid rgba(36, 199, 255, 0.8);
+    outline: 0;
+    font-size: 1.3rem;
+    color: black;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border: 2px solid rgb(36, 199, 255);
+    margin: 10px;
+    font-family: inherit;
+    width: 246px;
+    font-size: 1.3rem;
+    color: black;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    box-shadow: inset 0 0 10px rgba(27, 178, 255, 0.4), 0 0 9px 3px rgba(27, 178, 255, 0.1);
+}
+
+.errorInput {
+    outline: none;
+    border: 2px solid red;
+    font-family: inherit;
+    width: 246px;
+    font-size: 1.3rem;
+    color: black;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    margin: 10px;
+    box-shadow: inset 0 0 10px rgba(238, 18, 18, 0.6), 0 0 9px 3px rgba(152, 35, 35, 0.3);
+}
+
+.error {
+    color: red;
+}

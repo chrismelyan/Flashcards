@@ -1,0 +1,26 @@
+.label {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.checkbox {
+    appearance: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background: rgba(27, 178, 255, 0.1);
+    border: 1px solid rgba(27, 178, 255, 0.4);
+    border-radius: 5px;
+}
+
+.checkbox:checked {
+    appearance: none;
+    background: url('image/checked.png');
+    background-size: 20px;
+}
+
+.checkbox:focus {
+    outline: 2px solid rgb(36, 199, 255);
+}

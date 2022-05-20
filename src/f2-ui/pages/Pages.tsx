@@ -7,22 +7,23 @@ import Signup from "./p2-signup/Signup";
 import NewPassword from "./p4-new-password/NewPassword";
 import ResetPassword from "./p5-reset/ResetPassword";
 import Error404 from "./p6-error/404";
+import s from './Pages.module.css'
 
 export const PATH = {
-    login: '/login',
-    signup: '/signup',
-    profile: '/profile',
-    newPassword: '/new-password',
-    resetPassword: '/reset-password',
-    error: '/error',
-    test: '/test'
+    login: 'login',
+    signup: 'signup',
+    profile: 'profile',
+    newPassword: 'new-password',
+    resetPassword: 'reset-password',
+    error: '404',
+    test: 'test'
 }
 
 const Pages = () => {
     return (
-        <div>
+        <div className={s.pagesContainer}>
             <Routes>
-                <Route path={'/'} element={<Login/>}/>
+                <Route path={'/'} element={<Test/>}/>
                 <Route path={PATH.login} element={<Login/>}/>
                 <Route path={PATH.signup} element={<Signup/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
@@ -30,7 +31,7 @@ const Pages = () => {
                 <Route path={PATH.resetPassword} element={<ResetPassword/>}/>
                 <Route path={PATH.error} element={<Error404/>}/>
                 <Route path={PATH.test} element={<Test/>}/>
-                <Route path={'/*'} element={<Error404/>}/>
+                <Route path={'*'} element={<Error404/>}/>
             </Routes>
         </div>
     );

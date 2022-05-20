@@ -1,5 +1,4 @@
 .container {
-    grid-area: h;
     height: 60px;
     display: flex;
     align-items: center;

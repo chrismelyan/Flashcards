@@ -17,8 +17,9 @@
 
 .checkbox:checked {
     appearance: none;
-    background: url('image/checked.png');
-    background-size: 20px;
+    background-image: url('image/checked.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .checkbox:focus {

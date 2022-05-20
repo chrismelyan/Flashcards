@@ -3,7 +3,7 @@ import React from 'react';
 const Signup = () => {
     return (
         <div>
-            Sing up
+            Sing up a new user
         </div>
     );
 };

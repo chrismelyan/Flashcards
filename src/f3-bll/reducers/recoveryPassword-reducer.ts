@@ -1,6 +1,6 @@
 import {setAppError, setLoadingStatus} from './app-reducer';
 import {DispatchActionType, ThunkType} from "../store";
-import {Api} from "../../f4-api/api";
+import {AuthApi} from "../../f4-api/auth-api";
 
 export type Nullable<T> = T | null
 
@@ -30,7 +30,7 @@ const setResponseInfoRecoveryPassword = (info: string) =>
 export const sendPasswordRecovery = (email: string):ThunkType => async (dispatch: DispatchActionType) => {
     try {
         dispatch(setLoadingStatus('loading'))
-        const res = await Api.recoveryPassword(email)
+        const res = await AuthApi.recoveryPassword(email)
         dispatch(setResponseInfoRecoveryPassword(res.data.info))
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');

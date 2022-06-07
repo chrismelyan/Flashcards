@@ -12,7 +12,7 @@ export type RegistrationParamsType = {
     password: string
 }
 
-export const Api = {
+export const AuthApi = {
     getPing() {
         return instance.get("/ping?frontTime=1596635884283")
     },

@@ -1,0 +1,12 @@
+.searchInput {
+    color: inherit;
+    border-radius: 5px;
+    border: 1px solid #999999;
+    outline: none;
+    font-size: 16px;
+    background-color: rgb(250, 250, 250, 0.15);
+    padding: 5px;
+    width: 400px;
+    height: 50px;
+    margin: 5px;
+}

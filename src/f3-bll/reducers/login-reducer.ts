@@ -1,7 +1,6 @@
 import {setAppError, setLoadingStatus} from "./app-reducer";
 import {ThunkType} from "../store";
-import {Api} from "../../f4-api/api";
-
+import {AuthApi} from "../../f4-api/auth-api";
 
 type LoginStateType = {
     data: LoginResponseType
@@ -52,7 +51,7 @@ export const getUserData = (data: LoginResponseType, isAuth: boolean) => ({type:
 export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
-        const res = await Api.login(email, password, rememberMe)
+        const res = await AuthApi.login(email, password, rememberMe)
         dispatch(getUserData(res.data, true));
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');

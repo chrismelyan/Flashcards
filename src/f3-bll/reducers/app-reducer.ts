@@ -1,6 +1,6 @@
 import {getUserData, LoginResponseType} from './login-reducer';
 import {ThunkType} from "../store";
-import {Api} from "../../f4-api/api";
+import {AuthApi} from "../../f4-api/auth-api";
 
 export type LoadingStatusType = 'idle' | 'loading'
 type InitialStateType = {
@@ -39,7 +39,7 @@ export const setIsInitialized = (isInitialized: boolean) => ({type: 'app/SET-IS-
 export const authMe = (): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
-        const res = await Api.authMe()
+        const res = await AuthApi.authMe()
         dispatch(getUserData(res.data, true))
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
@@ -53,7 +53,7 @@ export const authMe = (): ThunkType => async dispatch => {
 export const logout = (): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
-        const res = await Api.logout()
+        const res = await AuthApi.logout()
         dispatch(getUserData({} as LoginResponseType, false))
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');

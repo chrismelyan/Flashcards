@@ -7,19 +7,21 @@ import {newPasswordReducer} from "./reducers/newPasswordReducer";
 import {RecoveryPasswordActionsType, recoveryPasswordReducer} from "./reducers/recoveryPassword-reducer";
 import {LoginActionType, loginReducer} from "./reducers/login-reducer";
 import {RegistrationActionType, RegistrationReducer} from "./reducers/registration-reducer";
+import {packReducer, PackReducerActionsType} from "./reducers/pack-reducer";
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers({
-    appReducer: appReducer,
+    app: appReducer,
     newPassword: newPasswordReducer,
     recoverPassword: recoveryPasswordReducer,
     login: loginReducer,
-    registration: RegistrationReducer
+    registration: RegistrationReducer,
+    pack: packReducer
 })
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
+export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
 
 export type AppRootStateType = ReturnType<typeof reducer>
 export type AppRootActionsType =
@@ -27,6 +29,7 @@ export type AppRootActionsType =
     | LoginActionType
     | RecoveryPasswordActionsType
     | AppActionType
+    | PackReducerActionsType
 
 export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 

@@ -1,0 +1,25 @@
+.userPhotoWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.userPhoto {
+    position: relative;
+}
+
+.userPhotoInner {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    box-shadow: 0 0 3px #999;
+    overflow: hidden;
+    display: flex;
+}
+
+.svgPosition {
+    position: absolute !important;;
+    bottom: -4px;
+    right: -10px;
+    color: #fff !important;;
+    background: rgb(0, 0, 0, 0.3) !important;
+}

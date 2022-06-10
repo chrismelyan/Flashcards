@@ -4,10 +4,10 @@ import Test from "./p7-test/Test";
 import Profile from "./p3-profile/Profile";
 import Login from "./p1-login/Login";
 import Signup from "./p2-signup/Signup";
-import NewPassword from "./p4-new-password/NewPassword";
-import ResetPassword from "./p5-reset/ResetPassword";
+import NewPassword from "./p4-new-password/NewPassword"
 import Error404 from "./p6-error/404";
 import s from './Pages.module.css'
+import ForgotPassword from "./p5-reset/ForgotPassword";
 
 export const PATH = {
     login: 'login',
@@ -28,7 +28,7 @@ const Pages = () => {
                 <Route path={PATH.signup} element={<Signup/>}/>
                 <Route path={PATH.profile} element={<Profile/>}/>
                 <Route path={PATH.newPassword} element={<NewPassword/>}/>
-                <Route path={PATH.resetPassword} element={<ResetPassword/>}/>
+                <Route path={PATH.resetPassword} element={<ForgotPassword/>}/>
                 <Route path={PATH.error} element={<Error404/>}/>
                 <Route path={PATH.test} element={<Test/>}/>
                 <Route path={'*'} element={<Error404/>}/>

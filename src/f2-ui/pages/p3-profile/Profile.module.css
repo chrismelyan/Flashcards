@@ -1,0 +1,24 @@
+.profileContainer {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1850px;
+    background: #F9F9FE;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 30px auto;
+    box-shadow: 0 3px 3px -2px rgb(0 0 0 / 20%), 0 3px 4px 0 rgb(0 0 0 / 14%), 0 1px 8px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar {
+    width: 250px;
+    background: #ECECF9;
+}
+
+.content {
+    width: calc(100% - 250px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 30px; /* всегда вопрос с падингами и марджинами. по БЭМ марджины детей */
+}

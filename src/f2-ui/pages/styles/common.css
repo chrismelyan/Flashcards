@@ -1,0 +1,22 @@
+.containerGrid {
+    justify-content: center;
+    align-items: center;
+}
+.itemGrid {
+    justify-content: center;
+    text-align: center;
+    background: #F9F9FE;
+    margin-top: 84px;
+    width: 413px;
+    min-height: 468px;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+

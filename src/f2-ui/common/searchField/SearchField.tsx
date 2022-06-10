@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useAppDispatch} from "../../../bll/store/store";
-import {searchPacksByName} from "../../../bll/reducers/pack-reducer";
 import s from './SearchField.module.css';
+import {useAppDispatch} from "../../../f3-bll/store";
+import {searchPacksByName} from "../../../f3-bll/reducers/pack-reducer";
 
 const SearchField = () => {
     const dispatch = useAppDispatch()

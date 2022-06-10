@@ -1,0 +1,26 @@
+.mainBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 413px;
+    height: 540px;
+    background-color: #F9F9FE;
+    border-radius: 10px;
+}
+
+.signUp {
+    width: 85px;
+    height: 33px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+}

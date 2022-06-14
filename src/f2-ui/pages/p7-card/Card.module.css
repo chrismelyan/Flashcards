@@ -1,0 +1,13 @@
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.ratingForm {
+    margin-top: 20px;
+}
+.cardButtons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+}

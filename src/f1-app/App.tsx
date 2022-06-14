@@ -9,6 +9,7 @@ import ErrorSnackbar from "../f2-ui/common/errorSnackbar/ErrorSnackbar";
 
 function App() {
     const dispatch = useAppDispatch()
+
     const loadingStatus = useAppSelector<string>(state => state.app.loadingStatus)
     const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
 
@@ -17,7 +18,6 @@ function App() {
     }, [])
 
     if(!isInitialized) return <Loader/>
-
 
     return (
         <div className={s.app}>

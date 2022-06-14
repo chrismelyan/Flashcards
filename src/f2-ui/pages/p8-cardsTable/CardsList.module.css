@@ -1,0 +1,30 @@
+.contentBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    padding: 40px 30px;
+}
+
+.backLinkWrapper {
+    display: flex;
+}
+
+.backLink {
+    display: flex;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    /*color: #2D2E46;*/
+    color: #33b198;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cardsSearchBar {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+}

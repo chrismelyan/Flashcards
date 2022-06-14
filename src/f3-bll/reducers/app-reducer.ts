@@ -1,31 +1,35 @@
+import {ThunkType} from '../store';
+import {AuthApi, LoginResponseType} from '../../f4-api/auth-api';
 import {getUserData} from './login-reducer';
-import {ThunkType} from "../store";
-import {AuthApi, LoginResponseType} from "../../f4-api/auth-api";
 
 const initialState: InitialStateType = {
     error: null,
     loadingStatus: 'idle',
-    isInitialized: false
+    isInitialized: false,
+    trash: null
 }
 export const appReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
-        case 'app/SET-APP-ERROR':
+        case 'APP/SET-APP-ERROR':
             return {...state, error: action.error}
-        case 'app/SET-LOADING-STATUS':
+        case 'APP/SET-LOADING-STATUS':
             return {...state, loadingStatus: action.loadingStatus}
-        case 'app/SET-IS-INITIALIZED': {
+        case 'APP/SET-IS-INITIALIZED':
             return {...state, isInitialized: action.isInitialized}
-        }
+        case 'APP/SET-TRASH':
+            return {...state, trash: action.value}
         default:
             return state;
     }
 }
 
 // action
-export const setAppError = (error: string | null) => ({type: 'app/SET-APP-ERROR', error} as const)
+export const setAppError = (error: string | null) => ({type: 'APP/SET-APP-ERROR', error} as const)
 export const setLoadingStatus = (loadingStatus: LoadingStatusType) =>
-    ({type: 'app/SET-LOADING-STATUS', loadingStatus} as const)
-export const setIsInitialized = (isInitialized: boolean) => ({type: 'app/SET-IS-INITIALIZED', isInitialized} as const)
+    ({type: 'APP/SET-LOADING-STATUS', loadingStatus} as const)
+export const setIsInitialized = (isInitialized: boolean) =>
+    ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
+export const setTrash = (value?: any) => ({type: 'APP/SET-TRASH', value} as const)
 
 // thunk
 export const authMe = (): ThunkType => async dispatch => {
@@ -34,17 +38,17 @@ export const authMe = (): ThunkType => async dispatch => {
         const res = await AuthApi.authMe()
         dispatch(getUserData(res.data, true))
     } catch (e: any) {
-        const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
-        console.log(error)
+        // const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
     } finally {
         dispatch(setLoadingStatus('idle'))
         dispatch(setIsInitialized(true))
     }
 }
-export const logout = (): ThunkType => async dispatch => {
+export const logOut = (): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
-        await AuthApi.logout()
+        const res = await AuthApi.logout()
+        dispatch(setTrash(res.data.info))
         dispatch(getUserData({} as LoginResponseType, false))
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
@@ -55,12 +59,15 @@ export const logout = (): ThunkType => async dispatch => {
 }
 
 // type
+export type AppActionType = ReturnType<typeof setAppError>
+    | ReturnType<typeof setLoadingStatus>
+    | ReturnType<typeof setIsInitialized>
+    | ReturnType<typeof setTrash>
+
 export type LoadingStatusType = 'idle' | 'loading'
 type InitialStateType = {
     error: string | null
     loadingStatus: LoadingStatusType
     isInitialized: boolean
+    trash: any
 }
-export type AppActionType = ReturnType<typeof setAppError>
-    | ReturnType<typeof setLoadingStatus>
-    | ReturnType<typeof setIsInitialized>

@@ -2,15 +2,20 @@ import {instance} from './auth-api';
 
 export const CardsPackAPI = {
     getPack({packName, min, max, sortPacks, page, pageCount, user_id}: PackQueryParams) {
-        return instance.get<Pack>('/cards/pack',
-            {params: {packName, min, max, sortPacks, page, pageCount, user_id}})
+        return instance.get<Pack>('/cards/pack', {params: {packName, min, max, sortPacks, page, pageCount, user_id}})
     },
-    searchPacksByName({packName}: PackQueryParams) {
-        return instance.get<Pack>('/cards/pack', {params: {packName}})
+    addNewPack(name: string) {
+        return instance.post('/cards/pack', {cardsPack: {name}})
+    },
+    deletePack(id: string) {
+        return instance.delete('/cards/pack', {params: {id}})
+    },
+    updatePack(_id: string, name: string) {
+        return instance.put('/cards/pack', {cardsPack: {_id, name}})
     }
 }
 
-// types
+// type
 export type PackCard = {
     _id: string
     user_id: string
@@ -39,12 +44,12 @@ export type Pack = {
     token: string
     tokenDeathTime: number
 }
-type PackQueryParams = {
+export type PackQueryParams = {
     packName?: string
-    min?: string
-    max?: string
+    min?: number
+    max?: number
     sortPacks?: string
-    page?: string
-    pageCount?: string
+    page?: number
+    pageCount?: number
     user_id?: string
 }

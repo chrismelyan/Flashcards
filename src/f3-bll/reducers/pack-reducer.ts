@@ -23,13 +23,14 @@ export const packReducer = (state: Pack = initialState, action: PackReducerActio
             return state
     }
 }
+
 // action
 const setCardPacks = (cardPacks: PackCard[]) => ({type: 'PACK/SET_CARD_PACKS', cardPacks} as const)
 const setCardPacksInfo = (cardPacksInfo: PackCardsInfo) => ({type: 'PACK/SET_CARD_PACKS_INFO', cardPacksInfo} as const)
 
 // thunk
 export const fetchCardsPack = (): ThunkType => async (dispatch: DispatchActionType) => {
-    const pageCount = '10'
+    const pageCount = 10
     try {
         dispatch(setLoadingStatus('loading'))
         const res = await CardsPackAPI.getPack({pageCount})
@@ -77,7 +78,7 @@ export const searchPacksByName = (packName: string): ThunkType => async dispatch
     }
 }
 
-// types
+// type
 export type PackReducerActionsType =
     | ReturnType<typeof setCardPacks>
     | ReturnType<typeof setCardPacksInfo>

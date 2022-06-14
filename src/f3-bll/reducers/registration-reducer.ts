@@ -6,11 +6,6 @@ export const InitialRegistrationState = {
     isRegistered: false
 }
 
-//Types
-export type InitialRegistrationStateType = typeof InitialRegistrationState;
-export type RegistrationActionType = ReturnType<typeof setRegistrationAC>;
-
-//Reducer
 export const RegistrationReducer = (state: InitialRegistrationStateType = InitialRegistrationState, action: RegistrationActionType):InitialRegistrationStateType => {
     switch (action.type) {
         case "REGISTRATION":
@@ -20,10 +15,10 @@ export const RegistrationReducer = (state: InitialRegistrationStateType = Initia
     }
 }
 
-//ActionCreators
+// action
 export const setRegistrationAC = (isRegistered: boolean) => ({type: "REGISTRATION", isRegistered} as const);
 
-//ThunkCreator
+// thunk
 export const setRegistrationTC = (data: RegistrationParamsType): ThunkType => async (dispatch) => {
     try {
         dispatch(setLoadingStatus('loading'));
@@ -37,3 +32,7 @@ export const setRegistrationTC = (data: RegistrationParamsType): ThunkType => as
         dispatch(setLoadingStatus('idle'));
     }
 }
+
+// type
+export type RegistrationActionType = ReturnType<typeof setRegistrationAC>;
+export type InitialRegistrationStateType = typeof InitialRegistrationState;

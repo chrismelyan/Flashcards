@@ -1,24 +1,6 @@
 import {setAppError, setLoadingStatus} from "./app-reducer";
 import {ThunkType} from "../store";
-import {AuthApi} from "../../f4-api/auth-api";
-
-type LoginStateType = {
-    data: LoginResponseType
-    isAuth: boolean
-}
-export type LoginResponseType = {
-    _id: string
-    email: string
-    name: string
-    avatar?: string
-    publicCardPacksCount: number // количество колод
-    created: Date
-    updated: Date
-    isAdmin: boolean
-    verified: boolean // подтвердил ли почту
-    rememberMe: boolean
-    error?: string
-}
+import {AuthApi, LoginResponseType} from "../../f4-api/auth-api";
 
 const initState: LoginStateType = {
     data: {
@@ -36,7 +18,6 @@ const initState: LoginStateType = {
     },
     isAuth: false
 }
-export type LoginActionType = ReturnType<typeof getUserData> | ReturnType<typeof updateUserDataInfo>
 
 export const loginReducer = (state: LoginStateType = initState, action: LoginActionType): LoginStateType => {
     switch (action.type) {
@@ -48,11 +29,14 @@ export const loginReducer = (state: LoginStateType = initState, action: LoginAct
             return state
     }
 }
+
+// action
 export const getUserData = (data: LoginResponseType, isAuth: boolean) =>
     ({type: 'login/GET-USER-DATA', data, isAuth} as const)
 export const updateUserDataInfo = (data: LoginResponseType) =>
     ({type: 'UPDATE-USER-DATA-INFO', data} as const)
 
+// thunk
 export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
@@ -79,4 +63,12 @@ export const updateUserInfo = (name: string, avatar: string): ThunkType => async
     } finally {
         dispatch(setLoadingStatus('idle'))
     }
+}
+
+// type
+export type LoginActionType = ReturnType<typeof getUserData> | ReturnType<typeof updateUserDataInfo>
+
+type LoginStateType = {
+    data: LoginResponseType
+    isAuth: boolean
 }

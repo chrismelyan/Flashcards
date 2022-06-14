@@ -1,16 +1,6 @@
-import {getUserData, LoginResponseType} from './login-reducer';
+import {getUserData} from './login-reducer';
 import {ThunkType} from "../store";
-import {AuthApi} from "../../f4-api/auth-api";
-
-export type LoadingStatusType = 'idle' | 'loading'
-type InitialStateType = {
-    error: string | null
-    loadingStatus: LoadingStatusType
-    isInitialized: boolean
-}
-export type AppActionType = ReturnType<typeof setAppError>
-    | ReturnType<typeof setLoadingStatus>
-    | ReturnType<typeof setIsInitialized>
+import {AuthApi, LoginResponseType} from "../../f4-api/auth-api";
 
 const initialState: InitialStateType = {
     error: null,
@@ -30,12 +20,14 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
             return state;
     }
 }
+
+// action
 export const setAppError = (error: string | null) => ({type: 'app/SET-APP-ERROR', error} as const)
-export const setLoadingStatus = (loadingStatus: LoadingStatusType) => {
-    return {type: 'app/SET-LOADING-STATUS', loadingStatus} as const
-}
+export const setLoadingStatus = (loadingStatus: LoadingStatusType) =>
+    ({type: 'app/SET-LOADING-STATUS', loadingStatus} as const)
 export const setIsInitialized = (isInitialized: boolean) => ({type: 'app/SET-IS-INITIALIZED', isInitialized} as const)
 
+// thunk
 export const authMe = (): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
@@ -49,11 +41,10 @@ export const authMe = (): ThunkType => async dispatch => {
         dispatch(setIsInitialized(true))
     }
 }
-
 export const logout = (): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
-        const res = await AuthApi.logout()
+        await AuthApi.logout()
         dispatch(getUserData({} as LoginResponseType, false))
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
@@ -62,3 +53,14 @@ export const logout = (): ThunkType => async dispatch => {
         dispatch(setLoadingStatus('idle'))
     }
 }
+
+// type
+export type LoadingStatusType = 'idle' | 'loading'
+type InitialStateType = {
+    error: string | null
+    loadingStatus: LoadingStatusType
+    isInitialized: boolean
+}
+export type AppActionType = ReturnType<typeof setAppError>
+    | ReturnType<typeof setLoadingStatus>
+    | ReturnType<typeof setIsInitialized>

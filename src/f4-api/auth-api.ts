@@ -1,5 +1,4 @@
 import axios from "axios";
-import {LoginResponseType} from "../f3-bll/reducers/login-reducer";
 
 export const instance = axios.create({
     // baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
@@ -48,12 +47,25 @@ export const AuthApi = {
     }
 }
 
+// type
 export type RegistrationParamsType = {
     email: string
     password: string
 }
-
 export type UpdateUserInfo = {
     name: string
     avatar: string
+}
+export type LoginResponseType = {
+    _id: string
+    email: string
+    name: string
+    avatar?: string
+    publicCardPacksCount: number // количество колод
+    created: Date
+    updated: Date
+    isAdmin: boolean
+    verified: boolean // подтвердил ли почту
+    rememberMe: boolean
+    error?: string
 }

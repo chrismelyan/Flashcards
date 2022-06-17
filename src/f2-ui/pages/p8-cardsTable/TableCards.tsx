@@ -6,13 +6,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {useAppDispatch} from '../../bll/store/store';
+import {useAppDispatch} from '../../../f3-bll/store';
 import {Button, Rating, TableSortLabel} from '@mui/material';
-import {CardType} from '../../api/cards-api';
+import {CardType} from '../../../f4-api/cards-api';
 import StarIcon from '@mui/icons-material/Star';
-import {editCard, OrderType, removeCard, setSortCards} from '../../bll/reducers/cards-reducer';
-import {ButtonCP} from '../PackTable/TablePack';
-
+import {editCard, OrderType, removeCard, setSortCards} from '../../../f3-bll/reducers/cards-reducer';
+import {ButtonCP} from '../p9-packTable/TablePack/TablePackMUI';
 
 type TablePackPropsType = {
     cards: CardType[]
@@ -36,11 +35,9 @@ export const TableCards: React.FC<TablePackPropsType> = ({cards, order, sortCard
     const onClickSortByHandler = (sortCard: string) => () => {
         dispatch(setSortCards(sortCard))
     }
-
     const removeCardHandler = (id: string) => {
         dispatch(removeCard(id))
     }
-
     const editCardHandler = (id: string) => {
         dispatch(editCard(id))
     }
@@ -90,7 +87,6 @@ export const TableCards: React.FC<TablePackPropsType> = ({cards, order, sortCard
                             <TableRow
                                 key={row.cardID}
                                 sx={[styleTd, styleAlignCell]}
-                                // sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell>
                                     {row.cardsPackOwnerID === authorizedUserId &&
@@ -125,6 +121,7 @@ export const TableCards: React.FC<TablePackPropsType> = ({cards, order, sortCard
     );
 }
 
+// style
 const styleTHead = {
     background: '#2c2b3f',
     'th': {color: '#fff', fontWeight: 'bold'},
@@ -142,6 +139,7 @@ const styleActiveLabel = {
     '& svg': {color: '#fff !important'}
 }
 
+// type
 interface Data {
     question: string;
     answer: string;
@@ -151,7 +149,6 @@ interface Data {
     cardsPackID: string;
     cardsPackOwnerID: string
 }
-
 function createData(
     question: string,
     answer: string,

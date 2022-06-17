@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import classes from './Card.module.css'
-import '../../styles/common.css';
+import '../styles/common.css';
 import {Button, Grid, Typography} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../f3-bll/store";
 import {useNavigate, useParams} from "react-router-dom";

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Button,} from "@mui/material";
 import classes from "./Card.module.css";
-import {styleBtn} from "../../styles/commonMui";
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Rating, {IconContainerProps} from '@mui/material/Rating';
@@ -10,6 +9,7 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import {styleBtn} from "../styles/commonMui";
 
 type AnswerFormType = {
     loadingStatus: string

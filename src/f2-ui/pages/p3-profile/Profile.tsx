@@ -5,8 +5,7 @@ import {Navigate} from 'react-router-dom';
 import {EditProfile} from './EditProfile/EditProfile';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 import {useAppDispatch, useAppSelector} from "../../../f3-bll/store";
-import {logout} from "../../../f3-bll/reducers/app-reducer";
-
+import {logOut} from "../../../f3-bll/reducers/app-reducer";
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -20,9 +19,8 @@ const Profile = () => {
     const onClickChangeEditModeHandler = () => {
         setEditMode(!editMode)
     }
-
     const onClickLogOutHandler = () => {
-        dispatch(logout())
+        dispatch(logOut())
     }
 
     if (!isAuth) return <Navigate to={'/login'}/>
@@ -46,12 +44,7 @@ const Profile = () => {
                         </div>
 
                         <div style={{background: '#ddd'}}>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodieveniet exercitationem
-                            molestias optio, recusandae voluptatibus. Amet doloribus perspiciatis tempore! Consequuntur
-                            dolorem eligendi eum, nesciunt quidem repellendus repudiandae saepe vero. Et quibusdam quos
-                            similique. Aliquam blanditiis, corporis debitis delectus ea, eos labore magnam odio
-                            praesentium
-                            quidem quod similique voluptatem, voluptates? Eaque.
+                        profile info
                         </div>
 
                     </div>

@@ -16,10 +16,9 @@ import {TableCards} from './TableCards';
 import {CardType} from '../../../f4-api/cards-api';
 import {Link, useParams} from 'react-router-dom';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import styles from '../Profile/Profile.module.css';
+import styles from '../p3-profile/Profile.module.css';
 import {styleBtn} from '../styles/commonMui';
 import {Button} from '@mui/material';
-
 
 const CardsList = () => {
     const dispatch = useAppDispatch()
@@ -42,25 +41,20 @@ const CardsList = () => {
     const searchByQuestionCallback = (question: string) => {
         dispatch(searchByQuestion(question))
     }
-
     const searchByAnswerCallback = (answer: string) => {
         dispatch(searchByAnswer(answer))
     }
-
     const backToPacksHandler = () => {
         dispatch(setCards([]))
         dispatch(searchByQuestion(''))
         dispatch(searchByAnswer(''))
     }
-
     const setCardsPageCallback = (page: number) => {
         dispatch(setCardPage(page + 1))
     }
-
     const setCardsPageCountCallback = (page: number) => {
         dispatch(setCardPageCount(page))
     }
-
     const addNewCardHandler = () => {
         dispatch(addNewCard(cardsPackId))
     }
@@ -114,7 +108,6 @@ const CardsList = () => {
                             </Button>
                         </div>
                     }
-
                     <TableCards cards={cards} order={order} sortCards={sortCards} authorizedUserId={authorizedUserId}/>
                     <Pagination page={cardsCurrentPage}
                                 pageCount={cardsPageCount}
@@ -127,10 +120,9 @@ const CardsList = () => {
         </div>
     );
 };
-
-
 export default CardsList;
 
+// style
 const arrow = {
     height: '1.4em',
     width: '1.4em',

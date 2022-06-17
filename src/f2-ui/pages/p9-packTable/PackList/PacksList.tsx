@@ -13,7 +13,7 @@ import {RangeCards} from '../RangeCards/RangeCards';
 import {OwnerSwitcher} from '../OwnerSwitcher/OwnerSwitcher';
 import {Pagination} from '../../../common/pagination/Pagination';
 import {Button} from '@mui/material';
-import styles from '../Profile/Profile.module.css';
+import styles from '../../p3-profile/Profile.module.css';
 import stylesPL from './PacksList.module.css';
 import {PackCard} from "../../../../f4-api/pack-api";
 import SearchField from "../../../common/searchField/SearchField";

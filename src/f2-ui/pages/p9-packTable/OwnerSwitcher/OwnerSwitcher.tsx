@@ -1,9 +1,7 @@
 import styles from './OwnerSwitcher.module.css'
-
 import React from 'react';
-import {useAppDispatch} from '../../../bll/store/store';
-import {setMinMaxSort, setPackOwner, setSearchPackName} from '../../../bll/reducers/pack-reducer';
-
+import {useAppDispatch} from '../../../../f3-bll/store';
+import {setMinMaxSort, setPackOwner, setSearchPackName} from '../../../../f3-bll/reducers/pack-reducer';
 
 type OwnerSwitcherPropsType = {
     owner: 'all' | 'my'

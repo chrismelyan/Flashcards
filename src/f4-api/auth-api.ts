@@ -10,8 +10,8 @@ export const AuthApi = {
     getPing() {
         return instance.get("/ping?frontTime=1596635884283")
     },
-    setNewPass() {
-        return instance.post("/auth/set-new-password", {password: "new-password"})
+    setNewPass(password: string, token: string) {
+        return instance.post("/auth/set-new-password", {password: password, resetPasswordToken: token})
     },
     registration(data: RegistrationParamsType) {
         return instance.post("/auth/register", data)

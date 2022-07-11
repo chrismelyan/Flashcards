@@ -9,6 +9,7 @@ import {LoginActionType, loginReducer} from "./reducers/login-reducer";
 import {RegistrationActionType, RegistrationReducer} from "./reducers/registration-reducer";
 import {packReducer, PackReducerActionsType} from "./reducers/pack-reducer";
 import {cardsReducer, CardsReducerActionType} from "./reducers/cards-reducer";
+import {modalReducer, ModalReducerActionType} from "./reducers/modal-reducer";
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -20,7 +21,8 @@ const reducer = combineReducers({
     login: loginReducer,
     registration: RegistrationReducer,
     pack: packReducer,
-    cards: cardsReducer
+    cards: cardsReducer,
+    modal: modalReducer
 })
 
 export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
@@ -33,6 +35,7 @@ export type AppRootActionsType =
     | AppActionType
     | PackReducerActionsType
     | CardsReducerActionType
+    | ModalReducerActionType
 
 export type ThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 

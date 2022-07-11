@@ -14,7 +14,6 @@ export const RegistrationReducer = (state: InitialRegistrationStateType = Initia
             return state;
     }
 }
-
 // action
 export const setRegistrationAC = (isRegistered: boolean) => ({type: "REGISTRATION", isRegistered} as const);
 

@@ -1,40 +1,43 @@
 import {setAppError, setLoadingStatus} from "./app-reducer";
-import {ThunkType} from "../store";
+import {AppRootStateType, ThunkType} from "../store";
 import {AuthApi, LoginResponseType} from "../../f4-api/auth-api";
+import {EMPTY_STRING} from "../constants/constants";
 
 const initState: LoginStateType = {
     data: {
-        _id: '',
-        email: '',
-        name: '',
-        avatar: '',
+        _id: EMPTY_STRING,
+        email: EMPTY_STRING,
+        name: EMPTY_STRING,
+        avatar: EMPTY_STRING,
         publicCardPacksCount: 0,  // количество колод
         created: new Date(),
         updated: new Date(),
         isAdmin: false,
         verified: false, // подтвердил ли почту
         rememberMe: false,
-        error: ''
+        error: EMPTY_STRING
     },
     isAuth: false
 }
 
 export const loginReducer = (state: LoginStateType = initState, action: LoginActionType): LoginStateType => {
     switch (action.type) {
-        case 'login/GET-USER-DATA':
+        case 'LOGIN/GET-USER-DATA':
             return {...state, data: action.data, isAuth: action.isAuth}
-        case 'UPDATE-USER-DATA-INFO':
+        case 'LOGIN/UPDATE-USER-DATA-INFO':
             return {...state, data: action.data}
         default:
             return state
     }
 }
+// selector
+export const selectLoginIsAuth = (state: AppRootStateType) => state.login.isAuth
 
 // action
 export const getUserData = (data: LoginResponseType, isAuth: boolean) =>
-    ({type: 'login/GET-USER-DATA', data, isAuth} as const)
+    ({type: 'LOGIN/GET-USER-DATA', data, isAuth} as const)
 export const updateUserDataInfo = (data: LoginResponseType) =>
-    ({type: 'UPDATE-USER-DATA-INFO', data} as const)
+    ({type: 'LOGIN/UPDATE-USER-DATA-INFO', data} as const)
 
 // thunk
 export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkType => async dispatch => {

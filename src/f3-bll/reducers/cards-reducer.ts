@@ -1,6 +1,9 @@
 import {CardsApi, CardsQueryParams, CardType} from '../../f4-api/cards-api';
 import {AppRootStateType, DispatchActionType, ThunkType} from '../store';
 import {setAppError, setLoadingStatus} from './app-reducer';
+import {EMPTY_STRING} from "../constants/constants";
+import {controlModalWindowAC} from "./modal-reducer";
+import {setCurrentPackPropsAC} from "./pack-reducer";
 
 export type OrderType = 'desc' | 'asc'
 const initialState: InitialStateType = {
@@ -10,14 +13,14 @@ const initialState: InitialStateType = {
     maxGrade: 0,
     page: 1,
     pageCount: 5,
-    packUserId: '',
+    packUserId: EMPTY_STRING,
 
-    sortCards: '',
+    sortCards: EMPTY_STRING,
     order: 'desc',
-    cardAnswer: '',
-    cardQuestion: '',
-    cardsPack_id: '',
-    card_id: '',
+    cardAnswer: EMPTY_STRING,
+    cardQuestion: EMPTY_STRING,
+    cardsPack_id: EMPTY_STRING,
+    card_id: EMPTY_STRING,
     min: 0,
     max: 0
 }
@@ -109,6 +112,8 @@ export const addNewCard = (packID: string): ThunkType => async (dispatch: Dispat
         dispatch(setAppError(error))
     } finally {
         dispatch(setLoadingStatus('idle'))
+        dispatch(controlModalWindowAC())
+        dispatch(setCurrentPackPropsAC())
     }
 }
 export const removeCard = (id: string): ThunkType => async dispatch => {
@@ -121,9 +126,10 @@ export const removeCard = (id: string): ThunkType => async dispatch => {
         dispatch(setAppError(error))
     } finally {
         dispatch(setLoadingStatus('idle'))
+        dispatch(controlModalWindowAC())
+        dispatch(setCurrentPackPropsAC())
     }
 }
-
 export const editCard = (id: string): ThunkType => async dispatch => {
     const newQ = 'Updated question'
     try {
@@ -135,14 +141,16 @@ export const editCard = (id: string): ThunkType => async dispatch => {
         dispatch(setAppError(error))
     } finally {
         dispatch(setLoadingStatus('idle'))
+        dispatch(controlModalWindowAC())
+        dispatch(setCurrentPackPropsAC())
     }
 }
 export const updateCardGrade = (id: string, grade: number): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
-        await CardsApi.updateGrade(id, grade)
-        // const data = res.data.updatedGrade
-        // dispatch(updateGrade(data.card_id, data.grade, data.shots))
+        const res = await CardsApi.updateGrade(id, grade)
+        const data = res.data.updatedGrade
+        dispatch(updateGrade(data.card_id, data.grade, data.shots))
         dispatch(fetchCards())
     }
     catch(e: any) {

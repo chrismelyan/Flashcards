@@ -1,0 +1,24 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.wrapper h3 {
+    line-height: 0;
+}
+
+.text {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.packName {
+    font-weight: bold;
+}
+
+.btnGroup {
+    display: flex;
+    justify-content: space-between;
+}

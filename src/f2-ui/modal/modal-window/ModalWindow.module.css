@@ -1,0 +1,6 @@
+.modalWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 395px;
+    min-height: 250px;
+}

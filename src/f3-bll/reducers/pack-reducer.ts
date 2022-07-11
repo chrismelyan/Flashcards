@@ -19,7 +19,10 @@ const initialState: PackInitStateType = {
     order: 'desc',
     packOwner: 'all',
     minSort: 0,
-    maxSort: 0
+    maxSort: 0,
+
+    currentPackID: null,
+    currentPackName: EMPTY_STRING
 }
 
 export const packReducer = (state: PackInitStateType = initialState, action: PackReducerActionsType): PackInitStateType => {
@@ -105,11 +108,10 @@ export const fetchCardsPack = (): ThunkType => async (dispatch: DispatchActionTy
         dispatch(setLoadingStatus('idle'))
     }
 }
-export const addCardPack = (): ThunkType => async (dispatch: DispatchActionType) => {
-    const newName = 'JS/React/Redux'
+export const addCardPack = (name: string): ThunkType => async (dispatch: DispatchActionType) => {
     try {
         dispatch(setLoadingStatus('loading'))
-        await CardsPackAPI.addNewPack(newName)
+        await CardsPackAPI.addNewPack(name)
         dispatch(fetchCardsPack())
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
@@ -180,4 +182,6 @@ type PackInitStateType = Pack & {
     packOwner: 'all' | 'my'
     minSort: number
     maxSort: number
+    currentPackID: null | string,
+    currentPackName: string
 }

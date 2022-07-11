@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from "../f3-bll/store";
 import {authMe} from "../f3-bll/reducers/app-reducer";
 import {Loader} from "../f2-ui/common/loader/Loader";
 import ErrorSnackbar from "../f2-ui/common/errorSnackbar/ErrorSnackbar";
+import {ModalWindow} from "../f2-ui/modal/modal-window/ModalWindow";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -15,7 +16,7 @@ function App() {
 
     useEffect(() => {
         dispatch(authMe())
-    }, [])
+    }, [dispatch])
 
     if(!isInitialized) return <Loader/>
 
@@ -23,6 +24,7 @@ function App() {
         <div className={s.app}>
             {loadingStatus === 'loading' && <Loader/>}
             <ErrorSnackbar/>
+            <ModalWindow/>
             <Header/>
             <Pages/>
         </div>

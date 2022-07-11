@@ -98,11 +98,7 @@ export const fetchCards = (): ThunkType => async (dispatch: DispatchActionType, 
         dispatch(setLoadingStatus('idle'))
     }
 }
-export const addNewCard = (packID: string): ThunkType => async (dispatch: DispatchActionType) => {
-
-    const question = 'Question for card'
-    const answer = 'Answer for card'
-
+export const addNewCard = (packID: string, question: string, answer: string): ThunkType => async (dispatch: DispatchActionType) => {
     try {
         dispatch(setLoadingStatus('loading'))
         await CardsApi.addNewCard(packID, question, answer)
@@ -130,11 +126,10 @@ export const removeCard = (id: string): ThunkType => async dispatch => {
         dispatch(setCurrentPackPropsAC())
     }
 }
-export const editCard = (id: string): ThunkType => async dispatch => {
-    const newQ = 'Updated question'
+export const editCard = (id: string, question: string): ThunkType => async dispatch => {
     try {
         dispatch(setLoadingStatus('loading'))
-        await CardsApi.updateCard(id, newQ)
+        await CardsApi.updateCard(id, question)
         dispatch(fetchCards())
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');

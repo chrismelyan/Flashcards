@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import {useAppDispatch, useAppSelector} from '../../../../f3-bll/store';
 import {PackCard} from '../../../../f4-api/pack-api';
 import {Button, TableSortLabel} from '@mui/material';
-import {removePack, setSearchPackName, setSortBy, updatePack} from '../../../../f3-bll/reducers/pack-reducer';
+import {removePack, setSearchPackName, setSortBy} from '../../../../f3-bll/reducers/pack-reducer';
 import {useNavigate} from 'react-router-dom';
 import {setPackId} from '../../../../f3-bll/reducers/cards-reducer';
 import {ButtonCP, styleActiveLabel, styleAlignCell, styleTd, styleTHead} from "./TablePackMUI";

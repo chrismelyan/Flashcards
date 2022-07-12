@@ -16,7 +16,7 @@ export const CustomLink: FC<PropsType> = (props) => {
                    justifyContent: 'center',
                    alignItems: 'center',
                    fontSize: '25px',
-                   color: match ? '#F8FFAE' : '#43C6AC'
+                   color: match ? '#332a70' : '#9890C7'
                }}
                to={props.to} >
             {props.to === "/" && <PermIdentityIcon style={{margin: '0 10px'}} fontSize={"large"}/>}

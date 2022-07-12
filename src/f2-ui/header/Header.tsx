@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Header.module.css'
-import {PATH} from "../pages/Pages";
 import {CustomLink} from "../pages/utilities/CustomLink";
+import {PATH} from "../app-router/AppRouter";
 
 const Header = () => {
     return (

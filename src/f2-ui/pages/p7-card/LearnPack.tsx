@@ -9,6 +9,7 @@ import {CardType} from "../../../f4-api/cards-api";
 import {fetchCards, setCards, setPackId, updateCardGrade} from "../../../f3-bll/reducers/cards-reducer";
 import {setSearchPackName} from "../../../f3-bll/reducers/pack-reducer";
 import AnswerForm from "./AnswerForm";
+import {EMPTY_STRING} from "../../../f3-bll/constants/constants";
 
 const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -34,20 +35,20 @@ const LearnPack = () => {
     const [first, setFirst] = useState<boolean>(true)
     const [isChecked, setIsChecked] = useState<boolean>(false)
     const [card, setCard] = useState<CardType>({
-        _id: '',
-        cardsPack_id: '',
-        answer: '',
-        question: '',
+        _id: EMPTY_STRING,
+        cardsPack_id: EMPTY_STRING,
+        answer: EMPTY_STRING,
+        question: EMPTY_STRING,
         grade: 0,
         shots: 0,
-        user_id: '',
-        created: '',
-        updated: '',
+        user_id: EMPTY_STRING,
+        created: EMPTY_STRING,
+        updated: EMPTY_STRING,
     })
 
     React.useEffect(() => {
         packUrlID && dispatch(setPackId(packUrlID))
-    }, [])
+    }, [packUrlID, dispatch])
 
     React.useEffect(() => {
         if (first) {
@@ -65,7 +66,8 @@ const LearnPack = () => {
 
         if (cards.length > 0) {
             dispatch(updateCardGrade(card._id, grade))
-            setCard(getCard(cards));
+            // setCard(getCard(cards)); чтобы не было мерцания, т.к. обновление карточки тоже сетает карточку;
+            // или крутилку или другой контент вместо вопроса во время лоадинга (запроса и ответа на сервер)
         }
     }
     const onCancel = () => {

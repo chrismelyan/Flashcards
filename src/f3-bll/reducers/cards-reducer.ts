@@ -52,6 +52,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
             return state
     }
 }
+// selector
+export const selectCards = (state: AppRootStateType) => state.cards
 
 // action
 export const setCards = (cards: CardType[]) => ({type: 'CARDS/SET-CARDS', cards} as const)

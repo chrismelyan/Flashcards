@@ -15,7 +15,7 @@ const SearchField = (props: SearchFieldType) => {
     useEffect(
         () => {
             props.searchCallback(debouncedSearchTerm)
-        }, [debouncedSearchTerm, props] // Only call effect if debounced search term changes
+        }, [debouncedSearchTerm] // Only call effect if debounced search term changes
     );
 
     useEffect(() => {

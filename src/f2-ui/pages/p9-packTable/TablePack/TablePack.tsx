@@ -1,18 +1,16 @@
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useAppDispatch, useAppSelector} from '../../../../f3-bll/store';
 import {PackCard} from '../../../../f4-api/pack-api';
-import {Button, TableSortLabel} from '@mui/material';
-import {removePack, setSearchPackName, setSortBy} from '../../../../f3-bll/reducers/pack-reducer';
+import {setCurrentPackPropsAC, setSearchPackName, setSortBy} from '../../../../f3-bll/reducers/pack-reducer';
 import {useNavigate} from 'react-router-dom';
-import {setPackId} from '../../../../f3-bll/reducers/cards-reducer';
-import {ButtonCP, styleActiveLabel, styleAlignCell, styleTd, styleTHead} from "./TablePackMUI";
+import {controlModalWindowAC, ModalComponentType} from "../../../../f3-bll";
+import {PackTableHeader} from "../pack-table-header/PackTableHeader";
+import {PackItemSkeleton} from "../pack-item-skeleton/PackItemSkeleton";
+import {PackItem} from "../pack-item/PackItem";
 
 type TablePackPropsType = {
     pack: PackCard[]
@@ -24,8 +22,8 @@ export const TablePack: React.FC<TablePackPropsType> = ({pack, sortBy, order}) =
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    //todo можем потом перенести
     const authorizedUserId = useAppSelector(state => state.login.data._id)
+    const status = useAppSelector(state => state.app.loadingStatus)
 
     const rows = pack.map(el => createData(
         el.name,
@@ -39,100 +37,40 @@ export const TablePack: React.FC<TablePackPropsType> = ({pack, sortBy, order}) =
     const onClickSortByHandler = (sortBy: string) => () => {
         dispatch(setSortBy(sortBy))
     }
-    const handlerGetCards = (id: string, name: string) => {
+    const handlerGetCards = (e: React.MouseEvent<HTMLAnchorElement>, length: number, isOwner: boolean) => {
+        if (length === 0 && !isOwner) {
+            e.preventDefault()
+        }
+    }
+    const handlerLearnCards = (id: string, name: string) => {
         navigate(`../card/${id}`)
-        dispatch(setPackId(id))
+        // dispatch(setPackId(id))
         dispatch(setSearchPackName(name))
     }
-    const removePackHandler = (packID: string) => {
-        dispatch(removePack(packID))
-    }
-    const updatePackHandler = (id: string) => {
-        dispatch(updatePack(id))
+    const openModalWindowHandle = (isOpen: boolean, component: ModalComponentType, packID: string, packName: string) => {
+        dispatch(controlModalWindowAC(isOpen, component))
+        dispatch(setCurrentPackPropsAC(packName, packID))
     }
 
     return (
         <>
             <TableContainer component={Paper}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
-                    <TableHead sx={styleTHead}>
-                        <TableRow sx={styleAlignCell}>
-                            <TableCell>
-                                <TableSortLabel
-                                    sx={styleActiveLabel}
-                                    active={sortBy === 'name'}
-                                    direction={sortBy === 'name' ? order : 'asc'}
-                                    onClick={onClickSortByHandler('name')}
-                                >Pack name</TableSortLabel>
-                            </TableCell>
-                            <TableCell>
-                                <TableSortLabel
-                                    sx={styleActiveLabel}
-                                    active={sortBy === 'cardsCount'}
-                                    direction={sortBy === 'cardsCount' ? order : 'asc'}
-                                    onClick={onClickSortByHandler('cardsCount')}
-                                >Count</TableSortLabel>
-                            </TableCell>
-                            <TableCell>
-                                <TableSortLabel
-                                    sx={styleActiveLabel}
-                                    active={sortBy === 'created'}
-                                    direction={sortBy === 'created' ? order : 'asc'}
-                                    onClick={onClickSortByHandler('created')}
-                                >Created at</TableSortLabel>
-                            </TableCell>
-                            <TableCell>
-                                <TableSortLabel
-                                    sx={styleActiveLabel}
-                                    active={sortBy === 'user_name'}
-                                    direction={sortBy === 'user_name' ? order : 'asc'}
-                                    onClick={onClickSortByHandler('user_name')}
-                                >Created by</TableSortLabel>
-                            </TableCell>
-                            <TableCell>
-                                <TableSortLabel
-                                    sx={styleActiveLabel}
-                                    active={sortBy === 'updated'}
-                                    direction={sortBy === 'updated' ? order : 'asc'}
-                                    onClick={onClickSortByHandler('updated')}
-                                >Updated</TableSortLabel>
-                            </TableCell>
-                            <TableCell>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
+                    <PackTableHeader sortBy={sortBy} order={order} onClickSortByHandler={onClickSortByHandler}/>
                     <TableBody>
-                        {rows.map((row) => (
-                            <TableRow
-                                key={row.packID}
-                                sx={[styleTd, styleAlignCell]}
-                            >
-                                <TableCell>{row.packName}</TableCell>
-                                <TableCell>{row.cardsCount}</TableCell>
-                                <TableCell>{row.createdDate}</TableCell>
-                                <TableCell>{row.createdByName}</TableCell>
-                                <TableCell>{row.updatedDate}</TableCell>
-                                <TableCell>
-                                    <div style={{display: 'flex', gap: '14px', justifyContent: 'end'}}>
-                                        {row.packUserID === authorizedUserId &&
-                                            <Button variant={'contained'}
-                                                    color={'error'}
-                                                    sx={{textTransform: 'none'}}
-                                                    onClick={() => removePackHandler(row.packID)}
-                                            >Delete</Button>
-                                        }
-                                        {row.packUserID === authorizedUserId &&
-                                            <ButtonCP
-                                                onClick={() => updatePackHandler(row.packID)}
-                                            >Edit</ButtonCP>
-                                        }
-                                        <ButtonCP
-                                            disabled={!row.cardsCount && row.packUserID !== authorizedUserId}
-                                            onClick={() => handlerGetCards(row.packID, row.packName)}
-                                        >Learn</ButtonCP>
-                                    </div>
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        {rows.map((row) => {
+                                if (status === "loading") {
+                                    return <PackItemSkeleton key={row.packID}
+                                                             isOwner={authorizedUserId === row.packUserID}/>
+                                }
+                                return <PackItem authorizedUserId={authorizedUserId}
+
+                                                 key={row.packID}
+                                                 handlerLearnCards={handlerLearnCards}
+                                                 openModalWindow={openModalWindowHandle}
+                                                 handlerGetCards={handlerGetCards} {...row}/>
+                            }
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>

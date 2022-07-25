@@ -32,6 +32,7 @@ export const loginReducer = (state: LoginStateType = initState, action: LoginAct
 }
 // selector
 export const selectLoginIsAuth = (state: AppRootStateType) => state.login.isAuth
+export const selectLoginData = (state: AppRootStateType) => state.login.data
 
 // action
 export const getUserData = (data: LoginResponseType, isAuth: boolean) =>

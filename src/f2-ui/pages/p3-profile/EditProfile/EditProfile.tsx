@@ -1,17 +1,17 @@
+import '../../styles/common.css';
 import styles from './EditProfile.module.css';
 import React from 'react';
 import Button from '@mui/material/Button';
+import {useAppDispatch, useAppSelector} from '../../../../f3-bll/store';
+import {LoadingStatusType} from '../../../../f3-bll/reducers/app-reducer';
 import Grid from '@mui/material/Grid';
 import {TextField} from '@mui/material';
 import {Formik, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import {ErrorText} from '../../p5-reset/ErrorText/ErrorText';
+import {styleBtn} from '../../styles/commonMui';
+import {updateUserInfo} from '../../../../f3-bll/reducers/login-reducer';
 import {UserAvatar} from '../UserAvatar/UserAvatar';
-import {useAppDispatch, useAppSelector} from "../../../../f3-bll/store";
-import {LoadingStatusType} from "../../../../f3-bll/reducers/app-reducer";
-import {ErrorText} from "../../p5-reset/ErrorText/ErrorText";
-import {styleBtn} from "../../p1-login/LoginMUI";
-import {updateUserInfo} from "../../../../f3-bll/reducers/login-reducer";
-
 
 type EditProfilePropsType = {
     avatar?: string

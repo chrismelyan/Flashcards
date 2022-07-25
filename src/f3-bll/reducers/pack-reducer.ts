@@ -100,6 +100,7 @@ export const fetchCardsPack = (): ThunkType => async (dispatch: DispatchActionTy
             token: res.data.token,
             tokenDeathTime: res.data.tokenDeathTime
         }
+
         dispatch(setCardPacksInfo(info))
     } catch (e: any) {
         const error = e.response ? e.response.data.error : (e.message + ', more details in the console');

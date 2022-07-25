@@ -2,8 +2,8 @@ import styles from './RangeCards.module.css'
 import React from 'react';
 import Slider, {SliderThumb} from '@mui/material/Slider/Slider';
 import {styled} from '@mui/material/styles';
-import {setMinMaxSort} from '../../../../f3-bll/reducers/pack-reducer';
-import {useAppDispatch} from '../../../../f3-bll/store';
+import {useAppDispatch} from "../../../../f3-bll/store";
+import {setMinMaxSort} from "../../../../f3-bll/reducers/pack-reducer";
 
 const minDistance = 1;
 
@@ -58,7 +58,7 @@ export const RangeCards: React.FC<RangeCardsPropsType>
     );
 });
 
-// style
+
 const AirbnbSlider = styled(Slider)(() => ({
     color: '#33b198',
     height: 3,

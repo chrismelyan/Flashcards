@@ -1,40 +1,41 @@
-import React from 'react';
-import {TablePack} from '../TablePack/TablePack';
+import React, {useState} from 'react';
+import {TablePack} from './TablePack';
 import {useAppDispatch, useAppSelector} from '../../../../f3-bll/store';
+import {Button} from '@mui/material';
+import {styleBtn} from '../../styles/commonMui';
+import styles from '../../p3-profile/Profile.module.css';
+import stylesPL from './PacksList.module.css';
+import {controlModalWindowAC, selectPack} from "../../../../f3-bll";
+import {PackCard} from "../../../../f4-api/pack-api";
 import {
-    addCardPack,
     fetchCardsPack,
-    selectPack,
+    setPackOwner,
     setPage,
     setPageCount,
     setSearchPackName
-} from '../../../../f3-bll/reducers/pack-reducer';
-import {RangeCards} from '../RangeCards/RangeCards';
-import {OwnerSwitcher} from '../OwnerSwitcher/OwnerSwitcher';
-import {Pagination} from '../../../common/pagination/Pagination';
-import {Button} from '@mui/material';
-import styles from '../../p3-profile/Profile.module.css';
-import stylesPL from './PacksList.module.css';
-import {PackCard} from "../../../../f4-api/pack-api";
+} from "../../../../f3-bll/reducers/pack-reducer";
+import {OwnerSwitcher} from "../OwnerSwitcher/OwnerSwitcher";
+import {RangeCards} from "../RangeCards/RangeCards";
 import SearchField from "../../../common/searchField/SearchField";
-import {styleBtn} from "../../styles/commonMui";
-
+import {Pagination} from "../../../common/pagination/Pagination";
 
 export const PacksList = () => {
     const dispatch = useAppDispatch()
 
-    const packName = useAppSelector(selectPack).packName
-    const pack = useAppSelector<PackCard[]>(state => state.pack.cardPacks)
-    const sortBy = useAppSelector<string>(state => state.pack.sortBy)
-    const order = useAppSelector<'desc' | 'asc'>(state => state.pack.order)
-    const owner = useAppSelector<'all' | 'my'>(state => state.pack.packOwner)
-    const maxCardsCount = useAppSelector<number>(state => state.pack.maxCardsCount)
-    const minCardsCount = useAppSelector<number>(state => state.pack.minCardsCount)
-    const maxSort = useAppSelector<number>(state => state.pack.maxSort)
-    const minSort = useAppSelector<number>(state => state.pack.minSort)
-    const page = useAppSelector<number>(state => state.pack.page)
-    const pageCount = useAppSelector<number>(state => state.pack.pageCount)
-    const cardsPacksTotalCount = useAppSelector<number>(state => state.pack.cardPacksTotalCount)
+    const [first, setFirst] = useState<boolean>(true)
+
+    const packName: string = useAppSelector(selectPack).packName
+    const pack: PackCard[] = useAppSelector(selectPack).cardPacks
+    const sortBy: string = useAppSelector(selectPack).sortBy
+    const order: 'desc' | 'asc' = useAppSelector(selectPack).order
+    const owner: 'all' | 'my' = useAppSelector(selectPack).packOwner
+    const maxCardsCount: number = useAppSelector(selectPack).maxCardsCount
+    const minCardsCount: number = useAppSelector(selectPack).minCardsCount
+    const maxSort: number = useAppSelector(selectPack).maxSort
+    const minSort: number = useAppSelector(selectPack).minSort
+    const page: number = useAppSelector(selectPack).page
+    const pageCount: number = useAppSelector(selectPack).pageCount
+    const cardsPacksTotalCount: number = useAppSelector(selectPack).cardPacksTotalCount
 
     const setPackPageCallback = (page: number) => {
         dispatch(setPage(page + 1));
@@ -45,13 +46,22 @@ export const PacksList = () => {
     const searchByPackName = (search: string) => {
         dispatch(setSearchPackName(search))
     }
-    const addNewPack = () => {
-        dispatch(addCardPack())
+    const openAddModalWindowHandle = () => {
+        dispatch(controlModalWindowAC(true, 'ADD'))
     }
 
     React.useEffect(() => {
+        debugger
+        if (first) {
+            dispatch(setPackOwner('all'))
+            setFirst(false)
+            return
+        }
+        debugger
         dispatch(fetchCardsPack())
-    }, [sortBy, order, owner, minSort, maxSort, packName, pageCount, page, dispatch])
+        debugger
+
+    }, [dispatch, sortBy, order, owner, minSort, maxSort, packName, pageCount, page, first])
 
     return (
         <div style={{margin: '30px auto'}}>
@@ -68,7 +78,8 @@ export const PacksList = () => {
                 </div>
 
                 <div className={styles.content}>
-                    <SearchField searchCallback={searchByPackName} placeholder={'Search'} initState={packName}/>
+                    <SearchField searchCallback={searchByPackName} placeholder={'Search'}
+                                 initState={packName}/>
 
                     <div className={stylesPL.buttonPosition}>
                         <Button
@@ -81,14 +92,14 @@ export const PacksList = () => {
                                 height: 'auto'
                             }]}
                             variant={'contained'}
-                            onClick={addNewPack}
+                            onClick={openAddModalWindowHandle}
                         >
                             Add new Pack
                         </Button>
                     </div>
 
                     {pack.length === 0 && owner === 'my'
-                        ? <div>You have no any Pack, do want to add?</div>
+                        ? <div>You have no packs. Do you want to add?</div>
                         : <>
                             <TablePack pack={pack} sortBy={sortBy} order={order}/>
 

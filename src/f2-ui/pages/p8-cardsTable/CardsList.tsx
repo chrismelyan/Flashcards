@@ -10,7 +10,7 @@ import {
     searchByQuestion, setCards,
     setCardPage,
     setCardPageCount,
-    addNewCard, setPackId
+    setPackId, selectCards
 } from '../../../f3-bll/reducers/cards-reducer';
 import {TableCards} from './TableCards';
 import {CardType} from '../../../f4-api/cards-api';
@@ -19,23 +19,24 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import styles from '../p3-profile/Profile.module.css';
 import {styleBtn} from '../styles/commonMui';
 import {Button} from '@mui/material';
+import {controlModalWindowAC, ModalComponentType, setCurrentPackPropsAC} from "../../../f3-bll";
+import {EMPTY_STRING} from "../../../f3-bll/constants/constants";
 
 const CardsList = () => {
     const dispatch = useAppDispatch()
     const {id: packUrlId} = useParams()
 
-    const cards = useAppSelector<CardType[]>(state => state.cards.cards)
-    const cardsCurrentPage = useAppSelector<number>(state => state.cards.page)
-    const cardsPageCount = useAppSelector<number>(state => state.cards.pageCount)
-    const cardsTotalCount = useAppSelector<number>(state => state.cards.cardsTotalCount)
-    const cardsQuestion = useAppSelector<string>(state => state.cards.cardQuestion)
-    const cardsAnswer = useAppSelector<string>(state => state.cards.cardAnswer)
-    const sortCards = useAppSelector(state => state.cards.sortCards)
-    const order = useAppSelector<OrderType>(state => state.cards.order)
-    const cardsPackId = useAppSelector(state => state.cards.cardsPack_id)
-    const cardsPackUserID = useAppSelector(state => state.cards.packUserId)
+    const cards: CardType[] = useAppSelector(selectCards).cards
+    const cardsCurrentPage: number = useAppSelector(selectCards).page
+    const cardsPageCount: number = useAppSelector(selectCards).pageCount
+    const cardsTotalCount: number = useAppSelector(selectCards).cardsTotalCount
+    const cardsQuestion: string = useAppSelector(selectCards).cardQuestion
+    const cardsAnswer: string = useAppSelector(selectCards).cardAnswer
+    const sortCards = useAppSelector(selectCards).sortCards
+    const order: OrderType = useAppSelector(selectCards).order
+    const cardsPackId = useAppSelector(selectCards).cardsPack_id
+    const cardsPackUserID = useAppSelector(selectCards).packUserId
 
-    //todo может потом перенести
     const authorizedUserId = useAppSelector(state => state.login.data._id)
 
     const searchByQuestionCallback = (question: string) => {
@@ -55,17 +56,18 @@ const CardsList = () => {
     const setCardsPageCountCallback = (page: number) => {
         dispatch(setCardPageCount(page))
     }
-    const addNewCardHandler = () => {
-        dispatch(addNewCard(cardsPackId))
+    const openModalWindowHandle = (isOpen: boolean, component: ModalComponentType, packID: string, packName: string) => {
+        dispatch(controlModalWindowAC(isOpen, component))
+        dispatch(setCurrentPackPropsAC(packName, packID))
     }
 
     React.useEffect(() => {
         packUrlId && dispatch(setPackId(packUrlId))
-    }, [])
+    }, [packUrlId, dispatch])
 
     React.useEffect(() => {
         cardsPackId && dispatch(fetchCards())
-    }, [cardsAnswer, cardsQuestion, cardsCurrentPage, cardsPageCount, cardsPackId, sortCards, order])
+    }, [dispatch, cardsAnswer, cardsQuestion, cardsCurrentPage, cardsPageCount, cardsPackId, sortCards, order])
 
     return (
         <div style={{margin: '30px auto'}}>
@@ -102,13 +104,17 @@ const CardsList = () => {
                                     height: 'auto'
                                 }]}
                                 variant={'contained'}
-                                onClick={addNewCardHandler}
+                                onClick={() => openModalWindowHandle(true, "ADD-NEW-CARD" , packUrlId as string, EMPTY_STRING)}
                             >
                                 Add new Card
                             </Button>
                         </div>
                     }
-                    <TableCards cards={cards} order={order} sortCards={sortCards} authorizedUserId={authorizedUserId}/>
+                    <TableCards cards={cards}
+                                order={order}
+                                sortCards={sortCards}
+                                packUserId={cardsPackUserID}
+                                authorizedUserId={authorizedUserId}/>
                     <Pagination page={cardsCurrentPage}
                                 pageCount={cardsPageCount}
                                 cardsPacksTotalCount={cardsTotalCount}

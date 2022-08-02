@@ -71,7 +71,7 @@ const LearnPack = () => {
         }
     }
     const onCancel = () => {
-        navigate('../pack-table')
+        navigate(-1)
         dispatch(setCards([]))
         dispatch(setSearchPackName(''))
     }

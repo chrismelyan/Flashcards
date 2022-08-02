@@ -1,6 +1,5 @@
 import styles from './Profile.module.css'
 import React from 'react';
-import Button from '@mui/material/Button';
 import {Navigate} from 'react-router-dom';
 import stylesPL from "../p9-packTable/TablePack/PacksList.module.css";
 import {controlModalWindowAC, selectPack} from "../../../f3-bll";
@@ -20,6 +19,8 @@ import {
 } from "../../../f3-bll/reducers/pack-reducer";
 import {PackCard} from "../../../f4-api/pack-api";
 import {styleBtn} from "../styles/commonMui";
+import AppButton from "../../common/appButton/AppButton";
+import {Button} from "@mui/material";
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -83,11 +84,8 @@ const Profile = () => {
                                      editMode={editMode}
                                      onClickChangeEditModeHandler={onClickChangeEditModeHandler}/>
 
-                        <div style={{textAlign: 'center', margin: '10px 0'}}>
-                            <Button variant={'contained'}
-                                    onClick={onClickLogOutHandler}>
-                                Log out
-                            </Button>
+                        <div>
+                            <AppButton callback={onClickLogOutHandler} title={'Log out'}/>
                         </div>
                     </div>
 

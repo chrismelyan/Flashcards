@@ -5,6 +5,7 @@ import TableRow from "@mui/material/TableRow";
 import {Link} from "react-router-dom";
 import { ButtonCP } from '../TablePack/TablePackMUI';
 import {ModalComponentType} from "../../../../f3-bll";
+import AppButton from "../../../common/appButton/AppButton";
 
 const styleTd = {
     '&:last-child td, &:last-child th': {border: 0},
@@ -72,9 +73,10 @@ export const PackItem: FC<PropsType> = (props) => {
                         >Delete</Button>
                     }
                     {packUserID === authorizedUserId &&
-                        <ButtonCP
-                            onClick={() => openModalWindow(true, "EDIT", packID, packName)}
-                        >Edit</ButtonCP>
+                        <AppButton
+                            title={'Edit'}
+                            callback={() => openModalWindow(true, "EDIT", packID, packName)}
+                        />
                     }
                     <ButtonCP
                         disabled={!cardsCount && !isOwner}

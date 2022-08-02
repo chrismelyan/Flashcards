@@ -104,7 +104,7 @@ const CardsList = () => {
                                     height: 'auto'
                                 }]}
                                 variant={'contained'}
-                                onClick={() => openModalWindowHandle(true, "ADD-NEW-CARD" , packUrlId as string, EMPTY_STRING)}
+                                onClick={() => openModalWindowHandle(true, "ADD-NEW-CARD", packUrlId as string, EMPTY_STRING)}
                             >
                                 Add new Card
                             </Button>

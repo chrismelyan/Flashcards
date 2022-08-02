@@ -10,7 +10,6 @@ import {HashRouter} from "react-router-dom";
 function App() {
     const dispatch = useAppDispatch()
 
-    const loadingStatus = useAppSelector<string>(state => state.app.loadingStatus)
     const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
 
     useEffect(() => {
@@ -22,7 +21,6 @@ function App() {
     return (
         <div>
             <HashRouter>
-                {loadingStatus === 'loading' && <Loader/>}
                 <ErrorSnackbar/>
                 <ModalWindow/>
                 <AppRouter/>

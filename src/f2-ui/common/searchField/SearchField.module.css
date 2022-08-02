@@ -1,12 +1,24 @@
+.searchWrapper {
+    width: 100%;
+}
+
 .searchInput {
-    color: inherit;
     border-radius: 5px;
-    border: 1px solid #999999;
+    border: 1px solid rgb(109, 106, 153, 0.8);
     outline: none;
     font-size: 16px;
-    background-color: rgb(250, 250, 250, 0.15);
-    padding: 5px;
-    width: 400px;
+    background-color: #ECECF9;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 15px;
+    width: 100%;
     height: 50px;
-    margin: 5px;
+    margin: 10px auto 20px;
+}
+
+.searchInput:focus {
+    border-color: #33b198;
+}
+
+::placeholder {
+    color: rgb(109, 106, 153, 0.8);
 }
